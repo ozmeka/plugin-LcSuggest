@@ -7,9 +7,9 @@
  */
 
 /**
- * The Library of Congress Suggest plugin.
+ * The Library of Congress Suggest plugin.  Modified to add SCOT and Geonames support.
  * 
- * @package Omeka\Plugins\LcSuggest
+ * @package Omeka\Plugins\SuggestAnything
  */
 class SuggestAnythingPlugin extends Omeka_Plugin_AbstractPlugin
 {
@@ -30,7 +30,7 @@ class SuggestAnythingPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookInstall()
     {
         $sql = "
-        CREATE TABLE `{$this->_db->LcSuggest}` (
+        CREATE TABLE `{$this->_db->SuggestAnything}` (
             `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
             `element_id` int(10) unsigned NOT NULL,
             `suggest_endpoint` tinytext COLLATE utf8_unicode_ci NOT NULL,
@@ -45,7 +45,7 @@ class SuggestAnythingPlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function hookUninstall()
     {
-        $sql = "DROP TABLE IF EXISTS `{$this->_db->LcSuggest}`";
+        $sql = "DROP TABLE IF EXISTS `{$this->_db->SuggestAnything}`";
         $this->_db->query($sql);
     }
     
@@ -67,7 +67,7 @@ class SuggestAnythingPlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function hookDefineAcl($args)
     {
-        $args['acl']->addResource('LcSuggest_Index');
+        $args['acl']->addResource('SuggestAnything_Index');
     }
     
     /**
@@ -77,8 +77,8 @@ class SuggestAnythingPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $nav[] = array(
             'label' => __('Suggest Anything'), 
-            'uri' => url('lc-suggest'), 
-            'resource' => 'LcSuggest_Index', 
+            'uri' => url('suggest-anything'), 
+            'resource' => 'SuggestAnything_Index', 
             'privilege' => 'index', 
         );
         return $nav;
