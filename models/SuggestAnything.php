@@ -11,7 +11,7 @@
  * 
  * @package Omeka\Plugins\CollectionTree
  */
-class LcSuggest extends Omeka_Record_AbstractRecord
+class SuggestAnything extends Omeka_Record_AbstractRecord
 {
     public $id;
     public $element_id;

@@ -4,7 +4,7 @@
 jQuery(document).ready(function() {
     jQuery('#element-id').change(function() {
         jQuery.post(
-            <?php echo js_escape(url('lc-suggest/index/suggest-endpoint')); ?>, 
+            <?php echo js_escape(url('suggest-anything/index/suggest-endpoint')); ?>, 
             {element_id: jQuery('#element-id').val()}, 
             function(data) {
                 jQuery('#suggest-endpoint').val(data);
@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
 //]]>
 </script>
 <?php echo flash(); ?>
-<form method="post" action="<?php echo url('lc-suggest/index/edit-element-suggest'); ?>">
+<form method="post" action="<?php echo url('suggest-anything/index/edit-element-suggest'); ?>">
 <section class="seven columns alpha">
     <div class="field">
         <div id="element-id-label" class="two columns alpha">

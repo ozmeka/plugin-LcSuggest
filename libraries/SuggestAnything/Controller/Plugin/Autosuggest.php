@@ -11,7 +11,7 @@
  * 
  * @package Omeka\Plugins\LcSuggest
  */
-class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abstract
+class SuggestAnything_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abstract
 {
     /**
      * Add autosuggest only during defined routes.
@@ -39,12 +39,12 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
         
         // Allow plugins to add routes that contain form inputs rendered by 
         // Omeka_View_Helper_ElementForm::_displayFormInput().
-        $routes = apply_filters('lc_suggest_routes', $routes);
+        $routes = apply_filters('suggest_anything_routes', $routes);
         
         // Add the autosuggest JavaScript to the JS queue.
         $view = Zend_Registry::get('view');
-        $view->headLink()->appendStylesheet('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.css');
-        $view->headScript()->appendFile('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.min.js', $type='text/javascript');
+        $view->headLink()->appendStylesheet('/plugins/SuggestAnything/views/javascripts/treemenu/jquery.treeview.css');
+        $view->headScript()->appendFile('/plugins/SuggestAnything/views/javascripts/treemenu/jquery.treeview.min.js', $type='text/javascript');
         
         // Iterate the defined routes.
         foreach ($routes as $route) {
@@ -53,7 +53,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
             if ($route['module'] === $module && $route['controller'] === $controller 
                 && in_array($action, $route['actions'])) {
                 
-                $lcTable = $db->getTable('LcSuggest');
+                $lcTable = $db->getTable('SuggestAnything');
                 $endpoints = $lcTable->getSuggestEndpoints();
                 
                 // Iterate the elements that are assigned to a suggest endpoint.
@@ -103,7 +103,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
     jQuery(document).bind('omeka:elementformload', function(event) {
         jQuery('#element-<?php echo $element->id; ?> textarea').autocompletetree({
             minLength: 2,
-            source: <?php echo json_encode($view->url('lc-suggest/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
+            source: <?php echo json_encode($view->url('suggest-anything/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
             select: function( event, ui ) {
                 if (ui.item && ui.item.value)
                 {
@@ -185,7 +185,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
     jQuery(document).bind('omeka:elementformload', function(event) {
         jQuery('#element-<?php echo $element->id; ?> textarea').autocomplete({
             minLength: 2,
-            source: <?php echo json_encode($view->url('lc-suggest/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
+            source: <?php echo json_encode($view->url('suggest-anything/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
             select: function( event, ui ) {
                 if( ui.item )
                 {

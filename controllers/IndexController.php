@@ -11,7 +11,7 @@
  * 
  * @package Omeka\Plugins\LcSuggest
  */
-class LcSuggest_IndexController extends Omeka_Controller_AbstractActionController
+class SuggestAnything_IndexController extends Omeka_Controller_AbstractActionController
 {
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
             $this->_helper->redirector('index');
         }
         
-        $lcSuggest = $this->_helper->db->getTable('LcSuggest')->findByElementId($elementId);
+        $lcSuggest = $this->_helper->db->getTable('SuggestAnything')->findByElementId($elementId);
         
         // Handle an existing suggest record.
         if ($lcSuggest) {
@@ -60,7 +60,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
                 $this->_helper->redirector('index');
             }
             
-            $lcSuggest = new LcSuggest;
+            $lcSuggest = new SuggestAnything;
             $lcSuggest->element_id = $elementId;
             $lcSuggest->suggest_endpoint = $suggestEndpoint;
             $this->_helper->flashMessenger(__('Successfully enabled the element\'s suggest feature.'), 'success');
@@ -78,7 +78,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
     {
         $this->_helper->viewRenderer->setNoRender();
         $elementId = $this->getRequest()->getParam('element_id');
-        $lcSuggest = $this->_helper->db->getTable('LcSuggest')->findByElementId($elementId);
+        $lcSuggest = $this->_helper->db->getTable('SuggestAnything')->findByElementId($elementId);
         echo $lcSuggest->suggest_endpoint;
     }
     
@@ -90,8 +90,8 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
     {
         // Get the suggest record.
         $elementId = $this->getRequest()->getParam('element-id');
-        $lcSuggest = $this->_helper->db->getTable('LcSuggest')->findByElementId($elementId);
-        $endpoints = $this->_helper->db->getTable('LcSuggest')->getSuggestEndpoints();
+        $lcSuggest = $this->_helper->db->getTable('SuggestAnything')->findByElementId($elementId);
+        $endpoints = $this->_helper->db->getTable('SuggestAnything')->getSuggestEndpoints();
                 
         // Query the specified Library of Congress suggest endpoint, get the 
         // response, and output suggestions in JSON.
@@ -125,7 +125,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
      */
     private function _suggestEndpointExists($suggestEndpoint)
     {
-        $suggestEndpoints = $this->_helper->db->getTable('LcSuggest')->getSuggestEndpoints();
+        $suggestEndpoints = $this->_helper->db->getTable('SuggestAnything')->getSuggestEndpoints();
         if (!array_key_exists($suggestEndpoint, $suggestEndpoints)) {
             return false;
         }
@@ -147,7 +147,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
         JOIN {$db->Element} e ON es.id = e.element_set_id 
         LEFT JOIN {$db->ItemTypesElements} ite ON e.id = ite.element_id 
         LEFT JOIN {$db->ItemType} it ON ite.item_type_id = it.id 
-        LEFT JOIN {$db->LcSuggest} ls ON e.id = ls.element_id 
+        LEFT JOIN {$db->SuggestAnything} ls ON e.id = ls.element_id 
         WHERE es.record_type IS NULL OR es.record_type = 'Item' 
         ORDER BY es.name, it.name, e.name";
         $elements = $db->fetchAll($sql);
@@ -172,7 +172,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
      */
     private function _getFormSuggestOptions()
     {
-        $suggests = $this->_helper->db->getTable('LcSuggest')->getSuggestEndpoints();
+        $suggests = $this->_helper->db->getTable('SuggestAnything')->getSuggestEndpoints();
         $options = array('' => __('Select Below'));
         foreach ($suggests as $suggestEndpoint => $suggest) {
             if ('http://id.loc.gov/suggest' == $suggestEndpoint) {
@@ -192,7 +192,7 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
      */
     private function _getAssignments()
     {
-        $lcSuggestTable = $this->_helper->db->getTable('LcSuggest');
+        $lcSuggestTable = $this->_helper->db->getTable('SuggestAnything');
         $elementTable = $this->_helper->db->getTable('Element');
         $elementSetTable = $this->_helper->db->getTable('ElementSet');
         

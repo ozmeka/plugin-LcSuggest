@@ -9,9 +9,9 @@
 /**
  * The lc_suggests table.
  * 
- * @package Omeka\Plugins\LcSuggest
+ * @package Omeka\Plugins\SuggestAnything
  */
-class Table_LcSuggest extends Omeka_Db_Table
+class Table_SuggestAnything extends Omeka_Db_Table
 {
     /**
      * List of suggest endpoints made available by the Library of Congress 
