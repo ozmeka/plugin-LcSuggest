@@ -11,7 +11,7 @@
  * 
  * @package Omeka\Plugins\LcSuggest
  */
-class LcSuggestPlugin extends Omeka_Plugin_AbstractPlugin
+class SuggestAnythingPlugin extends Omeka_Plugin_AbstractPlugin
 {
     protected $_hooks = array(
         'install', 
@@ -76,7 +76,7 @@ class LcSuggestPlugin extends Omeka_Plugin_AbstractPlugin
     public function filterAdminNavigationMain($nav)
     {
         $nav[] = array(
-            'label' => __('LC Suggest'), 
+            'label' => __('Suggest Anything'), 
             'uri' => url('lc-suggest'), 
             'resource' => 'LcSuggest_Index', 
             'privilege' => 'index', 
