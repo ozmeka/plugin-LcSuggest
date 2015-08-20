@@ -36,7 +36,7 @@ class Table_SuggestAnything extends Omeka_Db_Table
          ),
          'http://fillmylist.itd.uts.edu.au/scot_lcsubj' => array(
              'name' => 'SCOT + LC subject headings', 
-             'url'  => 'http://fillmylist.dev.bigblock.com.au/',
+             'url'  => 'http://fillmylist.itd.uts.edu.au/',
              'multi' => true,
          ),
          'http://fillmylist.itd.uts.edu.au/geonames' => array(
