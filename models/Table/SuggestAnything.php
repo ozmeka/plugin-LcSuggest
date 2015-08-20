@@ -32,7 +32,7 @@ class Table_SuggestAnything extends Omeka_Db_Table
         
          'http://fillmylist.itd.uts.edu.au/scot' => array(
              'name' => 'SCOT', 
-             'url'  => 'http://http://fillmylist.itd.uts.edu.au/', 
+             'url'  => 'http://fillmylist.itd.uts.edu.au/', 
          ),
          'http://fillmylist.itd.uts.edu.au/scot_lcsubj' => array(
              'name' => 'SCOT + LC subject headings', 
